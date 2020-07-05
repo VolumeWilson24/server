@@ -23,5 +23,6 @@ routes.get('/boats', BoatController.show);
 //LESSON
 routes.post('/lessons', video.single('video'), LessonController.store);
 routes.get('/lessons', LessonController.show);
+routes.get('/lesson/:id', LessonController.index);
 
 module.exports = routes;

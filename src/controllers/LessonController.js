@@ -22,5 +22,10 @@ module.exports = {
     async show(req, res) {
        const lessons = await Lesson.find();
        return res.status(200).send(lessons);
-    }
+    },
+
+    async index(req, res) {
+        const lessons = await Lesson.find({ boat: req.params.id}, null);
+        return res.status(200).send(lessons);
+     }
 };
