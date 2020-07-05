@@ -2,7 +2,7 @@ const Lesson = require('../models/Lesson');
 
 module.exports = {
     async store(req, res) {
-        const { title, level, boat } = req.body;
+        const { title, level, role, boat } = req.body;
         const { location: url } = req.file;
 
         let lesson = await Lesson.findOne({ title });
@@ -13,7 +13,7 @@ module.exports = {
             });
         }
         
-        lesson = await Lesson.create({ title, level, boat, url });
+        lesson = await Lesson.create({ title, level, role, boat, url });
         return res.status(201).send({
             menssagem: `Aula cadastrada com sucesso`,
             lesson: lesson

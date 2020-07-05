@@ -1,11 +1,12 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const { show } = require('./LessonController');
 
 module.exports = {
     async store(req, res) {
-        const { name, email, decryptedPass, cpf, registry, role } = req.body;
+        const { name, email, decryptedPass, points, level, cpf, registry, role } = req.body;
 
-        let user = await User.findOne({ registry, cpf, email });
+        let user = await User.findOne({ registry });
 
         if(user) {
             return res.status(409).send({
@@ -14,11 +15,16 @@ module.exports = {
         }
         const salt = bcrypt.genSaltSync(10);
         const password = bcrypt.hashSync(decryptedPass, salt);
-        user = await User.create({ name, email, password, registry, cpf, role});
+        user = await User.create({ name, email, password, points, level, registry, cpf, role});
         return res.status(201).send({
             menssagem: `Usuario cadastrado com sucesso`,
             user: user
         });
+    },
+
+    async show(req, res) {
+        const users = await User.find().sort( { points: -1 } );
+        return res.status(200).send(users);
     },
 
     async login(req, res) {

@@ -10,12 +10,15 @@ const LessonSchema = new mongoose.Schema({
         required: true
     },
     level: {
-        type: Number,
+        type: String,
+        required: true
+    },
+    role: {
+        type: String,
         required: true
     },
     boat: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Boat',
+        type: String,
         required: true,
     }]
 });
